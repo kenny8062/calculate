@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnlog = (Button) findViewById(R.id.btnlog);
         View.OnClickListener click = new View.OnClickListener(){
             @Override
-            public void onClick(View v){
+            public void onClick(View v){    //함수정의
                 switch(v.getId()){
                     case R.id.btn0:
                         break;
