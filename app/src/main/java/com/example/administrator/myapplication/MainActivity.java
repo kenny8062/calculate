@@ -56,99 +56,250 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){    //함수정의
                 String string=new String();
-                switch(v.getId()){
+                TextView textview = (TextView) findViewById(R.id.textView);
+                switch(v.getId()) {
                     case R.id.btn0:
-                        string=string+"0";
+                        string = string + "0";
                         break;
                     case R.id.btn1:
-                        string=string+"1";
+                        string = string + "1";
                         break;
                     case R.id.btn2:
-                        string=string+"2";
+                        string = string + "2";
                         break;
                     case R.id.btn3:
-                        string=string+"3";
+                        string = string + "3";
                         break;
                     case R.id.btn4:
-                        string=string+"4";
+                        string = string + "4";
                         break;
                     case R.id.btn5:
-                        string=string+"5";
+                        string = string + "5";
                         break;
                     case R.id.btn6:
-                        string=string+"6";
+                        string = string + "6";
                         break;
                     case R.id.btn7:
-                        string=string+"7";
+                        string = string + "7";
                         break;
                     case R.id.btn8:
-                        string=string+"8";
+                        string = string + "8";
                         break;
                     case R.id.btn9:
-                        string=string+"9";
+                        string = string + "9";
                         break;
                     case R.id.btndot:
-                        string=string+".";
+                        string = string + ".";
                         break;
                     case R.id.btnadd:
-                        string=string +'+';
+                        string = string + '+';
                         break;
                     case R.id.btndev:
-                        string=string + '-';
+                        string = string + '-';
                         break;
                     case R.id.btnsub:
-                        string=string+ '/';
+                        string = string + '/';
                         break;
                     case R.id.btnmul:
-                        string=string + '*';
+                        string = string + '*';
                         break;
                     case R.id.btn3r:
-                        string=string + "trpr(";
+                        string = string + "trpr(";
                         break;
                     case R.id.btnr:
-                        string=string + "r(";
+                        string = string + "r(";
                         break;
                     case R.id.btntan:
-                        string=string + "tan(";
+                        string = string + "tan(";
                         break;
                     case R.id.btnsin:
-                        string=string + "sin(";
+                        string = string + "sin(";
                         break;
                     case R.id.btncos:
-                        string=string + "cos(";
+                        string = string + "cos(";
                         break;
-                    case R.id.btnreset:string=null;
+                    case R.id.btnreset:
+                        string = null;
                         break;
                     case R.id.btnc:
                         break;
                     case R.id.btncl:
-                        string=string +")";
+                        string = string + ")";
                         break;
                     case R.id.btnop:
-                        string=string +"(";
+                        string = string + "(";
                         break;
                     case R.id.btnln:
-                        string=string + "ln(";
+                        string = string + "ln(";
                         break;
                     case R.id.btnlog:
-                        string=string + "log(";
+                        string = string + "log(";
                         break;
                     case R.id.btnpow:
-                        string=string + "pow(";
+                        string = string + "pow(";
                         break;
                     case R.id.btnabs:
-                        string=string + "abs(";
+                        string = string + "abs(";
                         break;
                     case R.id.btne:
-                        string=string + "E(";
+                        string = string + "E(";
                         break;
                     case R.id.btnpi:
-                        string=string + "pi(";
+                        string = string + "pi(";
                         break;
                     case R.id.btnequ:
-
-                        break;
-
+                        textview.setText(string);
+                        double[] num = new double[100];
+                        for (int i = 0; i < 100; i++) num[i] = 0;
+                        int a = 0;
+                        String string2 = new String();
+                        char[] arr = string.toCharArray();
+                        for (int i = 0; i < arr.length; i++) {
+                            if (arr[i] == '+') {
+                                stack.push('+');
+                                for (int j = a; j < i; j++) {
+                                    string2 = string2 + arr[j];
+                                }
+                                a = i + 1;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Double.parseDouble(string);
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            } else if (arr[i] == '-') {
+                                stack.push('-');
+                                for (int j = a; j < i; j++) {
+                                    string2 = string2 + arr[j];
+                                }
+                                a = i + 1;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Double.parseDouble(string2);
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            } else if (arr[i] == '*') {
+                                stack.push('*');
+                                for (int j = a; j < i; j++) {
+                                    string2 = string2 + arr[j];
+                                }
+                                a = i + 1;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Double.parseDouble(string2);
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            } else if (arr[i] == '/') {
+                                stack.push('/');
+                                for (int j = a; j < i; j++) {
+                                    string2 = string2 + arr[j];
+                                }
+                                a = i + 1;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Double.parseDouble(string2);
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            } else if (arr[i] == 't' && arr[i + 1] == 'r' && arr[i + 2] == 'p') {
+                                for (int j = i + 5; arr[j] == ')'; j++) {
+                                    string2 = string2 + arr[j];
+                                    a = j + 1;
+                                }
+                                i = a;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Math.cbrt(Double.parseDouble(string2));
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            } else if (arr[i] == 'r' && arr[i + 1] == '(') {
+                                for (int j = i + 2; arr[j] == ')'; j++) {
+                                    string2 = string2 + arr[j];
+                                    a = j + 1;
+                                }
+                                i = a;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Math.sqrt(Double.parseDouble(string2));
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            } else if (arr[i] == 't' && arr[i + 1] == 'a') {
+                                for (int j = i + 4; arr[j] == ')'; j++) {
+                                    string2 = string2 + arr[j];
+                                    a = j + 1;
+                                }
+                                i = a;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Math.tan(Double.parseDouble(string2));
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            } else if (arr[i] == 'c' && arr[i + 1] == 'o') {
+                                for (int j = i + 4; arr[j] == ')'; j++) {
+                                    string2 = string2 + arr[j];
+                                    a = j + 1;
+                                }
+                                i = a;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Math.cos(Double.parseDouble(string2));
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            } else if (arr[i] == 's' && arr[i + 1] == 'i') {
+                                for (int j = i + 4; arr[j] == ')'; j++) {
+                                    string2 = string2 + arr[j];
+                                    a = j + 1;
+                                }
+                                i = a;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Math.sin(Double.parseDouble(string2));
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            }else if (arr[i] == 'l' && arr[i + 1] == 'n') {
+                                for (int j = i + 3; arr[j] == ')'; j++) {
+                                    string2 = string2 + arr[j];
+                                    a = j + 1;
+                                }
+                                i = a;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Math.log(Double.parseDouble(string2));
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            }else if (arr[i] == 'l' && arr[i + 1] == 'o') {
+                                for (int j = i + 4; arr[j] == ')'; j++) {
+                                    string2 = string2 + arr[j];
+                                    a = j + 1;
+                                }
+                                i = a;
+                                for (int j = 0; j < 100; j++) {
+                                    if (num[j] == 0) {
+                                        num[j] = Math.log10(Double.parseDouble(string2));
+                                        string2 = null;
+                                        break;
+                                    }
+                                }
+                            }
+                    }
                 }
             }
 
