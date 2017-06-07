@@ -8,15 +8,16 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.lang.*;
 
 public class MainActivity extends AppCompatActivity {
-
+    Stacks stack=new Stacks(200);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView textView = (TextView) findViewById(R.id.textView);
+        final TextView textView = (TextView) findViewById(R.id.textView);
         Button btn0 = (Button) findViewById(R.id.btn0);
         Button btn1 = (Button) findViewById(R.id.btn1);
         Button btn2 = (Button) findViewById(R.id.btn2);
@@ -50,67 +51,102 @@ public class MainActivity extends AppCompatActivity {
         Button btn3r = (Button) findViewById(R.id.btn3r);
         Button btnln = (Button) findViewById(R.id.btnln);
         Button btnlog = (Button) findViewById(R.id.btnlog);
+        Button btndot = (Button) findViewById(R.id.btndot);
         View.OnClickListener click = new View.OnClickListener(){
             @Override
             public void onClick(View v){    //함수정의
+                String string=new String();
                 switch(v.getId()){
                     case R.id.btn0:
+                        string=string+"0";
                         break;
                     case R.id.btn1:
+                        string=string+"1";
                         break;
                     case R.id.btn2:
+                        string=string+"2";
                         break;
                     case R.id.btn3:
+                        string=string+"3";
                         break;
                     case R.id.btn4:
+                        string=string+"4";
                         break;
                     case R.id.btn5:
+                        string=string+"5";
                         break;
                     case R.id.btn6:
+                        string=string+"6";
                         break;
                     case R.id.btn7:
+                        string=string+"7";
                         break;
                     case R.id.btn8:
+                        string=string+"8";
                         break;
                     case R.id.btn9:
+                        string=string+"9";
+                        break;
+                    case R.id.btndot:
+                        string=string+".";
                         break;
                     case R.id.btnadd:
+                        string=string +'+';
                         break;
                     case R.id.btndev:
+                        string=string + '-';
                         break;
                     case R.id.btnsub:
+                        string=string+ '/';
                         break;
                     case R.id.btnmul:
+                        string=string + '*';
                         break;
                     case R.id.btn3r:
+                        string=string + "trpr(";
                         break;
                     case R.id.btnr:
+                        string=string + "r(";
                         break;
                     case R.id.btntan:
+                        string=string + "tan(";
                         break;
                     case R.id.btnsin:
+                        string=string + "sin(";
                         break;
                     case R.id.btncos:
+                        string=string + "cos(";
                         break;
-                    case R.id.btnreset:
+                    case R.id.btnreset:string=null;
                         break;
                     case R.id.btnc:
                         break;
                     case R.id.btncl:
+                        string=string +")";
                         break;
                     case R.id.btnop:
+                        string=string +"(";
                         break;
                     case R.id.btnln:
+                        string=string + "ln(";
                         break;
                     case R.id.btnlog:
+                        string=string + "log(";
                         break;
                     case R.id.btnpow:
+                        string=string + "pow(";
                         break;
                     case R.id.btnabs:
+                        string=string + "abs(";
                         break;
                     case R.id.btne:
+                        string=string + "E(";
                         break;
                     case R.id.btnpi:
+                        string=string + "pi(";
+                        break;
+                    case R.id.btnequ:
+
                         break;
 
                 }
