@@ -1,16 +1,15 @@
-/**
- * Created by Administrator on 2017-06-11.
- */
-class Node{
+package com.example.administrator.myapplication;
+
+class Nodec{
     char data;
-    Node nextNode;
-    public Node(char data){
+    Nodec nextNode;
+    public Nodec(char data){
         this.data = data;
         this.nextNode=null;
     }
 }
 public class Charstacks {
-    Node top;
+    Nodec top;
 
     public Charstacks(){
         top =null;
@@ -21,7 +20,7 @@ public class Charstacks {
     }
 
     public void push(char num){
-        Node term=new Node(num);
+        Nodec term=new Nodec(num);
         term.nextNode=top;
         top=term;
     }
