@@ -5,16 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.*;
 import java.lang.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Stacks stack=new Stacks(200);
     String str=new String();
+    Calculate cal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btncos = (Button) findViewById(R.id.btncos);
 
         Button btnadd = (Button) findViewById(R.id.btnadd);
-        Button btnsub = (Button) findViewById(R.id.btnsub);
-        Button btndev = (Button) findViewById(R.id.btndev);
+        Button btnsub = (Button) findViewById(R.id.btndev);
+        Button btndev = (Button) findViewById(R.id.btnsub);
         Button btnmul = (Button) findViewById(R.id.btnmul);
         Button btnequ = (Button) findViewById(R.id.btnequ);
         Button btne = (Button) findViewById(R.id.btne);
@@ -145,11 +141,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     str = str + '+';
                     txt.setText(str);
                     break;
-                case R.id.btndev:
+                case R.id.btnsub:
                     str = str + '-';
                     txt.setText(str);
                     break;
-                case R.id.btnsub:
+                case R.id.btndev:
                     str = str + '/';
                     txt.setText(str);
                     break;
@@ -178,10 +174,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     txt.setText(str);
                     break;
                 case R.id.btnreset:
-                    str = null;
+                    str = "";
                     txt.setText(str);
                     break;
                 case R.id.btnc:
+                    if(str.length()>=1) {
+                        char[] w = str.substring(str.length()-1,str.length()).toCharArray();
+                        if (w[0] == '(') {
+                            w = str.substring(str.length() - 2, str.length()).toCharArray();
+                            if(w[0]=='r')  str = str.substring(0, str.length() - 2);
+                            else {
+                                w = str.substring(str.length() - 4, str.length()).toCharArray();
+                                if (w[0] == 't' || w[0] == 's' || w[0] == 'c') {
+                                    str = str.substring(0, str.length() - 4);
+                                } else if (w[0] == 'r') str = str.substring(0, str.length() - 5);
+                            }
+                        } else {
+                            str = str.substring(0, str.length() - 1);
+                        }
+                    }
+                    txt.setText(str);
                     break;
                 case R.id.btncl:
                     str = str + ")";
@@ -434,7 +446,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                     if(num[j]!=0)  str2= str2 + Double.toString(num[j++]);
+                    str2=str2 + "=";
                     txt.setText(str2);
+                    cal=new Calculate(str2);
+                    txt.setText(cal.result());
                     str="";
                     break;
             }

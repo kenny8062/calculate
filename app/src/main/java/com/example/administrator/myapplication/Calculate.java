@@ -29,7 +29,10 @@ public class Calculate {
             ch=str.charAt(i);
             if(ch==' '){
                 continue;
-            }else if(ch>='0'&&ch<='9'){
+            }else if(ch=='.'){
+                num=num+ch;
+            }
+            else if((ch>='0'&&ch<='9')){
                 num=num+ch;
                 if(i+1!=str.length()){
                     if(	str.charAt(i+1)=='(' || str.charAt(i+1)==')' || str.charAt(i+1)=='+' || str.charAt(i+1)=='-' || str.charAt(i+1)=='/' || str.charAt(i+1)=='*' || str.charAt(i+1)=='='){
@@ -47,10 +50,8 @@ public class Calculate {
                     if (bol) {
                         bol = false;
                         dstr.push(-Double.parseDouble(num.toString()));
-
                     } else {
                         dstr.push(Double.parseDouble(num.toString()));
-
                     }
                 }
             }
