@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btncos = (Button) findViewById(R.id.btncos);
 
         Button btnadd = (Button) findViewById(R.id.btnadd);
-        Button btnsub = (Button) findViewById(R.id.btndev);
-        Button btndev = (Button) findViewById(R.id.btnsub);
+        Button btndev = (Button) findViewById(R.id.btndev);
+        Button btnsub = (Button) findViewById(R.id.btnsub);
         Button btnmul = (Button) findViewById(R.id.btnmul);
         Button btnequ = (Button) findViewById(R.id.btnequ);
         Button btne = (Button) findViewById(R.id.btne);
@@ -45,12 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btnpow = (Button) findViewById(R.id.btnpow);
         Button btnrev = (Button) findViewById(R.id.btnrev);
-        Button btnabs = (Button) findViewById(R.id.btnabs);
         Button btnr = (Button) findViewById(R.id.btnr);
         Button btn3r = (Button) findViewById(R.id.btn3r);
         Button btnln = (Button) findViewById(R.id.btnln);
         Button btnlog = (Button) findViewById(R.id.btnlog);
         Button btndot = (Button) findViewById(R.id.btndot);
+        btndot.setOnClickListener(this);
         btn0.setOnClickListener(this);
         btne.setOnClickListener(this);
         btnPI.setOnClickListener(this);
@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnop.setOnClickListener(this);
         btncl.setOnClickListener(this);
         btnpow.setOnClickListener(this);
-        btnabs.setOnClickListener(this);
         btnr.setOnClickListener(this);
         btn3r.setOnClickListener(this);
         btnlog.setOnClickListener(this);
@@ -141,11 +140,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     str = str + '+';
                     txt.setText(str);
                     break;
-                case R.id.btnsub:
+                case R.id.btndev:
                     str = str + '-';
                     txt.setText(str);
                     break;
-                case R.id.btndev:
+                case R.id.btnsub:
                     str = str + '/';
                     txt.setText(str);
                     break;
@@ -171,6 +170,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case R.id.btncos:
                     str = str + "cos(";
+                    txt.setText(str);
+                    break;
+                case R.id.btnpow:
+                    str=str+"^(";
                     txt.setText(str);
                     break;
                 case R.id.btnreset:
@@ -209,10 +212,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case R.id.btnlog:
                     str = str + "log(";
-                    txt.setText(str);
-                    break;
-                case R.id.btnabs:
-                    str = str + "abs(";
                     txt.setText(str);
                     break;
                 case R.id.btne:
@@ -321,7 +320,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     break;
                                 }
                             }
-                        } else if (arr[i] == 'r' && arr[i + 1] == '(') {
+                        }else if(arr[i]=='^'&&arr[i+1]=='('){
+                            double _num;
+                            double _num2;
+                            for (int j = a; j < i; j++) {
+                                string2 = string2 + arr[j];
+                            }
+                            _num=Double.parseDouble(string2);
+                            string2="";
+                            for(int j=i+2;arr[j]!=')';j++){
+                                string2=string2 + arr[j];
+                                a=j+2;
+                            }
+                            _num2=Double.parseDouble(string2);
+                            for (int j = 0; j < 100; j++) {
+                                if(string2.equals("")) break;
+                                if (num[j] == 0) {
+                                    num[j] = Math.pow(_num,_num2);
+                                    string2 = "";
+                                    break;
+                                }
+                            }
+                        }
+                        else if (arr[i] == 'r' && arr[i + 1] == '(') {
                             for (int j = i + 2; arr[j] != ')'; j++) {
                                 string2 = string2 + arr[j];
                                 a = j + 2;
