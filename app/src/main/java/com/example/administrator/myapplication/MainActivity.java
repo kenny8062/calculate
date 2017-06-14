@@ -2,9 +2,11 @@ package com.example.administrator.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.lang.*;
 
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.i("mylog"," i am created");
         final EditText textview = (EditText) findViewById(R.id.editText);
         Button btn0 = (Button) findViewById(R.id.btn0);
         Button btn1 = (Button) findViewById(R.id.btn1);
@@ -426,17 +429,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     break;
                                 }
                             }
-                        }else if(arr[i]=='('){
-                            arr2[i]='(';
+                        }
+                        else if(arr[i]=='('){
+                            for(int j=0;j<100;j++) {
+                                if (arr2[j] == '0') {
+                                    arr2[j] = '(';
+                                    break;
+                                }
+                                a=i+1;
+                            }
                         }else if(arr[i]==')') {
-                            arr2[i] = ')';
+                            for (int j = a; j<i; j++) {
+                                string2 = string2 + arr[j];
+                            }
+                            for (int j = 0; j < 100; j++) {
+                                if(string2.equals("")) break;
+                                if (num[j] == 0) {
+                                    num[j] = Double.parseDouble(string2);
+                                    string2 = "";
+                                    break;
+                                }
+                            }
+                            for(int j=0;j<100;j++) {
+                                if (arr2[j] == '0') {
+                                    arr2[j] = ')';
+                                    break;
+                                }
+                            }
                             a=i+1;
                         }
                         if(arr[i]=='='){
                             for (int j = a; j < i; j++) {
                                 string2 = string2 + arr[j];
                             }
-                            a = i + 1;
                             for (int j = 0; j < 100; j++) {
                                 if(string2.equals("")) break;
                                 if (num[j] == 0) {
@@ -454,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if(arr2[i]=='('){
                             str2= str2 +'(';
                             i++;
-                            while(arr2[i]==')'){
+                            while(arr2[i]!=')'){
                                 str2= str2 + Double.toString(num[j++]);
                                 str2= str2 + arr2[i++];
                             }
@@ -468,7 +493,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     if(num[j]!=0)  str2= str2 + Double.toString(num[j++]);
                     str2=str2 + "=";
-                    txt.setText(str2);
+                    Log.i("mylog",str2);
                     cal=new Calculate(str2);
                     txt.setText(cal.result());
                     str="";

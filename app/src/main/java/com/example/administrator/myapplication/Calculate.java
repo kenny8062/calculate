@@ -86,6 +86,7 @@ public class Calculate {
                         num3=calcul(num1,num2,ch1);
                         dstr.push(num3);
                     }
+
                 }
             }
         }
