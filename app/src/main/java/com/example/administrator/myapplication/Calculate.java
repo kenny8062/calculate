@@ -89,12 +89,18 @@ public class Calculate {
                 }
             }
         }
-        while(cstr.top!=null){
+
+        while(cstr.top!=null ){
             num1=dstr.pop();
-            num2=dstr.pop();
-            ch1=cstr.pop();
-            num3=calcul(num1,num2,ch1);
-            dstr.push(num3);
+            if(!(dstr.empty())) {
+                num2 = dstr.pop();
+                ch1 = cstr.pop();
+                num3 = calcul(num1, num2, ch1);
+                dstr.push(num3);
+            }else{
+                dstr.push(num1);
+                cstr.pop();
+            }
         }
     }
     public String result(){
