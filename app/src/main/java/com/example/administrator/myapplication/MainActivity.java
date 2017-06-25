@@ -187,16 +187,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     txt.setText(str);
                     break;
                 case R.id.btnc:
+                    int q=1;
                     if (str.length() >= 1) {
                         char[] w = str.substring(str.length() - 1, str.length()).toCharArray();
                         if (w[0] == '(') {
-                            w = str.substring(str.length() - 2, str.length()).toCharArray();
-                            if (w[0] == 'r') str = str.substring(0, str.length() - 2);
-                            else {
-                                w = str.substring(str.length() - 4, str.length()).toCharArray();
-                                if (w[0] == 't' || w[0] == 's' || w[0] == 'c') {
-                                    str = str.substring(0, str.length() - 4);
-                                } else if (w[0] == 'r') str = str.substring(0, str.length() - 5);
+                            if(str.length()>=2) {
+                                w = str.substring(str.length() - 2, str.length()).toCharArray();
+                                if (w[0] == 'r') {
+                                    str = str.substring(0, str.length() - 2);
+                                    q--;
+                                } else {
+                                    if(str.length()>=4) {
+                                        w = str.substring(str.length() - 4, str.length()).toCharArray();
+                                        if (w[0] == 't' || w[0] == 's' || w[0] == 'c') {
+                                            str = str.substring(0, str.length() - 4);
+                                            q--;
+                                        } else if (w[0] == 'r') {
+                                            str = str.substring(0, str.length() - 5);
+                                            q--;
+                                        }
+                                    }
+                                }
+                                if (q == 1) {
+                                    str = str.substring(0, str.length() - 1);
+                                }
+                                q = 1;
                             }
                         } else {
                             str = str.substring(0, str.length() - 1);
@@ -230,274 +245,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case R.id.btnequ:
                     str = str + "=";
-                    str2 = "";
-                    arr = str.toCharArray();
-                    for (int i = 0; i < 100; i++) num[i] = 0;
-                    for (int i = 0; i < 100; i++) arr2[i] = '0';
-                    for (int i = 0; i < arr.length; i++) {
-                        if (arr[i] == '+') {
-                            for (int j = 0; j < 100; j++) {
-                                if (arr2[j] == '0') {
-                                    arr2[j] = '+';
-                                    break;
-                                }
-                            }
-                            for (int j = a; j < i; j++) {
-                                string2 = string2 + arr[j];
-                            }
-                            a = i + 1;
-
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Double.parseDouble(string2);
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == '-') {
-                            for (int j = 0; j < 100; j++) {
-                                if (arr2[j] == '0') {
-                                    arr2[j] = '-';
-                                    break;
-                                }
-                            }
-                            for (int j = a; j < i; j++) {
-                                string2 = string2 + arr[j];
-                            }
-                            a = i + 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Double.parseDouble(string2);
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == '*') {
-                            for (int j = 0; j < 100; j++) {
-                                if (arr2[j] == '0') {
-                                    arr2[j] = '*';
-                                    break;
-                                }
-                            }
-                            for (int j = a; j < i; j++) {
-                                string2 = string2 + arr[j];
-                            }
-                            a = i + 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Double.parseDouble(string2);
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == '/') {
-                            for (int j = 0; j < 100; j++) {
-                                if (arr2[j] == '0') {
-                                    arr2[j] = '/';
-                                    break;
-                                }
-                            }
-                            for (int j = a; j < i; j++) {
-                                string2 = string2 + arr[j];
-                            }
-                            a = i + 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Double.parseDouble(string2);
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == 't' && arr[i + 1] == 'r' && arr[i + 2] == 'p') {
-                            for (int j = i + 5; arr[j] != ')'; j++) {
-                                string2 = string2 + arr[j];
-                                a = j + 2;
-                            }
-                            i = a - 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Math.round(Math.cbrt(Double.parseDouble(string2)) * 10) / 10.0;
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == '^' && arr[i + 1] == '(') {
-                            double _num;
-                            double _num2;
-                            for (int j = a; j < i; j++) {
-                                string2 = string2 + arr[j];
-                            }
-                            _num = Double.parseDouble(string2);
-                            string2 = "";
-                            for (int j = i + 2; arr[j] != ')'; j++) {
-                                string2 = string2 + arr[j];
-                                a = j + 2;
-                            }
-                            _num2 = Double.parseDouble(string2);
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Math.pow(_num, _num2);
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == 'r' && arr[i + 1] == '(') {
-                            for (int j = i + 2; arr[j] != ')'; j++) {
-                                string2 = string2 + arr[j];
-                                a = j + 2;
-                            }
-                            i = a - 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Math.round(Math.sqrt(Double.parseDouble(string2)) * 10) / 10.0;
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == 't' && arr[i + 1] == 'a') {
-                            for (int j = i + 4; arr[j] != ')'; j++) {
-                                string2 = string2 + arr[j];
-                                a = j + 2;
-                            }
-                            i = a - 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Math.round(Math.tan(Double.parseDouble(string2)) * 10) / 10.0;
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == 'c' && arr[i + 1] == 'o') {
-                            for (int j = i + 4; arr[j] != ')'; j++) {
-                                string2 = string2 + arr[j];
-                                a = j + 2;
-                            }
-                            i = a - 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Math.round(Math.cos(Double.parseDouble(string2)) * 10) / 10.0;
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == 's' && arr[i + 1] == 'i') {
-                            for (int j = i + 4; arr[j] != ')'; j++) {
-                                string2 = string2 + arr[j];
-                                a = j + 2;
-                            }
-                            i = a - 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Math.round(Math.sin(Double.parseDouble(string2)) * 10) / 10.0;
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == 'l' && arr[i + 1] == 'n') {
-                            for (int j = i + 3; arr[j] != ')'; j++) {
-                                string2 = string2 + arr[j];
-                                a = j + 2;
-                            }
-                            i = a - 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Math.round(Math.log(Double.parseDouble(string2)) * 10) / 10.0;
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == 'l' && arr[i + 1] == 'o') {
-                            for (int j = i + 4; arr[j] != ')'; j++) {
-                                string2 = string2 + arr[j];
-                                a = j + 2;
-                            }
-                            i = a - 1;
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Math.round(Math.log10(Double.parseDouble(string2)) * 10) / 10.0;
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                        } else if (arr[i] == '(') {
-                            for (int j = 0; j < 100; j++) {
-                                if (arr2[j] == '0') {
-                                    arr2[j] = '(';
-                                    break;
-                                }
-                                a = i + 1;
-                            }
-                        } else if (arr[i] == ')') {
-                            for (int j = a; j < i; j++) {
-                                string2 = string2 + arr[j];
-                            }
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Double.parseDouble(string2);
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                            for (int j = 0; j < 100; j++) {
-                                if (arr2[j] == '0') {
-                                    arr2[j] = ')';
-                                    break;
-                                }
-                            }
-                            a = i + 1;
-                        }
-                        if (arr[i] == '=') {
-                            for (int j = a; j < i; j++) {
-                                string2 = string2 + arr[j];
-                            }
-                            for (int j = 0; j < 100; j++) {
-                                if (string2.equals("")) break;
-                                if (num[j] == 0) {
-                                    num[j] = Double.parseDouble(string2);
-                                    string2 = "";
-                                    break;
-                                }
-                            }
-                            break;
-                        }
-                    }
-                    int i = 0;
-                    int j = 0;
-                    while (num[j] != 0 && arr2[i] != '0') {
-                        if (arr2[i] == '(') {
-                            str2 = str2 + '(';
-                            i++;
-                            while (arr2[i] != ')') {
-                                str2 = str2 + Double.toString(num[j++]);
-                                str2 = str2 + arr2[i++];
-                            }
-                            str2 = str2 + Double.toString(num[j++]);
-                            str2 = str2 + arr2[i++];
-                            if (arr2[i] != '0') str2 = str2 + arr2[i++];
-                        } else {
-                            str2 = str2 + Double.toString(num[j++]);
-                            str2 = str2 + arr2[i++];
-                        }
-                    }
-                    if (num[j] != 0) str2 = str2 + Double.toString(num[j++]);
-                    check(str2);
-                    str2 = str2 + "=";
-                    cal = new Calculate(str2);
+                    txt.setText(str);
+                    check(str);
+                    ReString res=new ReString(str);
+                    check(res.tostring());
+                    res.setplusString("=");
+                    cal = new Calculate(res.getString());
                     txt.setText(cal.result());
-                    str = "";
+                    str = cal.result();
                     break;
              }
             }catch(CantcalException  ex) {
@@ -516,6 +271,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(num1!=num2) {
             CantcalException ext = new CantcalException();
             throw ext;
+        }
+        for(int i=0;i<chr.length-1;i++){
+            if((chr[i]=='-'||chr[i]=='*'||chr[i]=='/'||chr[i]=='+')&&(chr[i+1]=='-'||chr[i+1]=='*'||chr[i+1]=='/'||chr[i+1]=='+'||chr[i+1]=='=')) {
+                CantcalException ext = new CantcalException();
+                throw ext;
+            }
         }
         return str;
     }
